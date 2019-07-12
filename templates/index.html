@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<title>Twitter API Search</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- jqury libs, for datepicker, autocomplete @ http://jquery.com/ -->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
+	<!-- source for tablesorter function, and its style @ https://mottie.github.io/tablesorter/docs/ -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.combined.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/css/theme.ice.min.css">
+
+	<!-- w3 responsive template -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- customized style sheet -->
+	<link rel="stylesheet" href="static/style.css">
+
+
+</head>
+
+
+<body>
+
+	<!-- Navbar -->
+	<div class="w3-top">
+		<div class="w3-bar w3-red w3-card w3-left-align w3-large">
+			<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+				href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
+					class="fa fa-bars"></i></a>
+			<a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+			<a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 1</a>
+			<a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 2</a>
+		</div>
+
+		<!-- Navbar on small screens -->
+		<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+			<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+			<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+		</div>
+	</div>
+
+
+	<!-- Header -->
+	<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+		<h1 class="w3-margin w3-jumbo">Watch Out Twitter!</h1><br>
+		<p class="w3-large">Welcome to Twitter API Search!</p>
+		<p class="w3-large">Here, you search tweets matching your input.</p><br>
+		<button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"
+			onclick="location.href='#SearchInput'">Get Started</button>
+	</header>
+
+
+	<!-- First Grid, i.e. input -->
+	<div class="w3-row-padding w3-padding-64 w3-container" id="SearchInput">
+		<div class="w3-content">
+			<div class="w3-twothird">
+				<h1>Search Input</h1>
+				Keyword: <input type="text" id="Keyword" name="Keyword" placeholder="ex) Hello"
+					title="Get trending topics in the US by starting your search with #.">
+				<div>
+					<center>
+						<label for="exact">EXACT WORD</label>
+						<label for="AND_box">AND</label>
+						<label for="OR_box">OR</label>
+					</center>
+					<div>
+						<input type="radio" name="radiobox" id="exact">
+					</div>
+					<div>
+						<input type="radio" name="radiobox" id="AND_box">
+						<div class="reveal-if-active">
+							<input type="text" id="AND" name="AND" class="require-if-active"
+								placeholder="AND something else">
+						</div>
+					</div>
+					<div>
+						<input type="radio" name="radiobox" id="OR_box">
+						<div class="reveal-if-active">
+							<input type="text" id="OR" name="OR" class="require-if-active"
+								placeholder="OR other stuffs">
+						</div>
+					</div>
+				</div>
+				Start Date: <input type="text" name="StartDate" placeholder=""
+					title="Select (optional) Start Date to narrow your search."><br>
+				End Date: <input type="text" name="EndDate" placeholder=""
+					title="Select (optional) End Date to narrow your search."><br>
+				Number of Result: <input type="text" name="NumberOfResult" placeholder="15"
+					title="Specify maximum Number of Result. Default is 15."><br>
+				<label class="container" for="Location">Charlottesville Only
+					<input type="checkbox" id="Location" name="Location" value="38.032423,-78.492793,1mi" checked>
+					<span class="checkmark"></span></label>
+				<button class="button button1" id="getInfo" type="button">GET TWEETS!</button>
+				<input type="reset" class="button button1" value="RESET" onClick="window.location.reload()"
+					style="float: right;">
+			</div>
+
+			<div class="w3-third">
+				<center>
+					<h3>Note & Instruction</h3>
+				</center>
+				<ul class="w3-text-grey">
+					<p>You can use advanced search by choosing EXACT WORD, AND, OR.</p>
+					<p>You can uncheck "Charlottesville Only" to free location restriction.</p>
+					<p>You can sort search results with multiple categories by holding shift.</p>
+					<p>For more advice, click here:</p>
+					<p id="help"></p>
+					<br>
+					<p>You must input at least Keyword or select checkbox to validate your search.</p>
+					<p>Be aware: you can only get tweets within seven days as from today.</p>
+					<p>If you need raw data in JSON, you can download the latest result here:</p>
+					<button id="download" class="button"><span>DOWNLOAD</span></button>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Second Grid, i.e. result -->
+	<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+		<div class="w3-content" id="result"></div>
+	</div>
+
+
+	<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+		<h1 class="w3-margin w3-xlarge">Quote of the day: stay strong</h1>
+	</div>
+
+
+	<!-- Footer -->
+	<footer class="w3-container w3-padding-32 w3-center w3-opacity">
+		<div class="w3-xlarge w3-padding-32">
+			<i class="fa fa-facebook-official w3-hover-opacity"></i>
+			<i class="fa fa-instagram w3-hover-opacity"></i>
+			<i class="fa fa-snapchat w3-hover-opacity"></i>
+			<i class="fa fa-pinterest-p w3-hover-opacity"></i>
+			<i class="fa fa-twitter w3-hover-opacity"></i>
+			<i class="fa fa-linkedin w3-hover-opacity"></i>
+		</div>
+		<p>Created by Haoyu Li</p>
+		<p>Templated by w3.css</p>
+	</footer>
+
+</body>
+
+<!-- js source -->
+<script type="text/javascript" src="static/script.js"></script>
+
+</html>
