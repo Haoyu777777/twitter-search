@@ -7,10 +7,10 @@ import twitter  # from https://pypi.python.org/pypi/python-twitter
 
 
 # info about the authentication from Steve Hawkes, stored as global constant
-CONSUMER_KEY = "NqAkPPmZnlMq2A9pNPWyNjxDV"
-CONSUMER_SECRET = "rMqKmr8sYHwiEy7vEAMKReQCflavH78pM1jKPncGu4nIoZf5oV"
-ACCESS_TOKEN_KEY = "42687474-fQDGLXWTFS31QDd10h79OyMerqKmbJP3lMMIQAfta"
-ACCESS_TOKEN_SECRET = "JIQSbJKITgeLzXBwtHdpnfprlqzG5ZUtvJ9GmAoVzvAJR"
+CONSUMER_KEY = "MY_CONSUMER_KEY"
+CONSUMER_SECRET = "MY_CONSUMER_SECRET"
+ACCESS_TOKEN_KEY = "MY_ACCESS_TOKEN_KEY"
+ACCESS_TOKEN_SECRET = "MY_ACCESS_TOKEN_SECRET"
 
 # fill in the authentication code from twitter
 api = twitter.Api(
