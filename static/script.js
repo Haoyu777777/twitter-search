@@ -1,13 +1,13 @@
 // set dynamic placeholder date
-var currentDate = new Date();
+let currentDate = new Date();
 // get current Date, call function to make it into string
-var formattedCurrentDate = (currentDate.getMonth() + 1) + "/" + currentDate.getDate() + "/" + currentDate.getFullYear();
+let formattedCurrentDate = (currentDate.getMonth() + 1) + "/" + currentDate.getDate() + "/" + currentDate.getFullYear();
 $("input[name=EndDate]").attr("placeholder", formattedCurrentDate); // set place holder for enddate
 
 // do the same for start date, which is set to be yesterday
-var yesterday = new Date();
+let yesterday = new Date();
 yesterday.setDate(currentDate.getDate() - 1); // get the previous date
-var formattedYesterday = (yesterday.getMonth() + 1) + "/" + yesterday.getDate() + "/" + yesterday.getFullYear();
+let formattedYesterday = (yesterday.getMonth() + 1) + "/" + yesterday.getDate() + "/" + yesterday.getFullYear();
 $("input[name=StartDate]").attr("placeholder", formattedYesterday); // set the placeholder for startdate
 
 // call datepicker function to get date string from user input
@@ -18,15 +18,15 @@ $("input[name=EndDate]").datepicker();
 $(document).ready(function () {
 
     // the result obtained from twitter through python, used for two different click function
-    var jsObject;
+    let jsObject;
 
     // function for parametric-search when button is clicked, output the search result in a table
     $("#getInfo").click(function () {
 
         // get all the keyword parameters in proper forms and strip space in them
-        var Keyword = $("input[name=Keyword]").val().trim();
-        var AndKeyword = $("input[name=AND]").val().trim();
-        var OrKeyword = $("input[name=OR]").val().trim();
+        let Keyword = $("input[name=Keyword]").val().trim();
+        let AndKeyword = $("input[name=AND]").val().trim();
+        let OrKeyword = $("input[name=OR]").val().trim();
 
 
         // use twitter advanced search operator for advanced searching
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 
         // encode the keyword (i.e. symbols) to proper form
-        var EncodedKeyword = fixedEncodeURIComponent(Keyword);
+        let EncodedKeyword = fixedEncodeURIComponent(Keyword);
 
 
         // check if the input keyword is empty or not
@@ -68,8 +68,8 @@ $(document).ready(function () {
         // get the input data for the url address to access twitter data, and change it if input is empty
 
         // check if there is input for count 
-        var count = $("input[name=NumberOfResult]").val();
-        var Count;
+        let count = $("input[name=NumberOfResult]").val();
+        let Count;
         if (count == "" || count.length == 0 || count == null) { // i.e. count is empty
             Count = "";
         } else {
@@ -78,7 +78,7 @@ $(document).ready(function () {
 
 
         // get location code here: if checked, only charlottesville; otherwise no restriction
-        var Location;
+        let Location;
         if ($("#Location").is(":checked")) {
             Location = "&geocode=" + $("input[name=Location]").val();
         } else {
@@ -87,11 +87,11 @@ $(document).ready(function () {
 
 
         // get date info for StartDate and EndDate
-        var StartDate = $("input[name=StartDate]").val();
-        var EndDate = $("input[name=EndDate]").val();
+        let StartDate = $("input[name=StartDate]").val();
+        let EndDate = $("input[name=EndDate]").val();
 
         // change the startdate to proper format, leave empty if no input
-        var StartDateString;
+        let StartDateString;
         if (StartDate == "" || StartDate.length == 0 || StartDate == null) {
             StartDateString = "";
         } else {
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
 
         // do the same for end date
-        var EndDateString;
+        let EndDateString;
         if (EndDate == "" || EndDate.length == 0 || EndDate == null) {
             EndDateString = "";
         } else {
@@ -131,7 +131,7 @@ $(document).ready(function () {
                 jsObject = JSON.parse(data);
 
                 // the string that transverse js array to html table
-                var bodyString = "<table id='myTable' class='tablesorter'>";
+                let bodyString = "<table id='myTable' class='tablesorter'>";
 
                 // if there is any result, format them out; otherwise output 'nothing found'
                 if (jsObject.length != 0) {
@@ -153,12 +153,12 @@ $(document).ready(function () {
                         // access those data using ["object name"]["subobject name"]...
 
                         // change the date from utc to local, display under DATE
-                        var UTCTimeString = new Date(jsObject[count].created_at);
-                        var localTimeString = UTCTimeString.toLocaleString();
+                        let UTCTimeString = new Date(jsObject[count].created_at);
+                        let localTimeString = UTCTimeString.toLocaleString();
 
                         // display under TEXT
-                        var textString;
-                        var tweet = jsObject[count];
+                        let textString;
+                        let tweet = jsObject[count];
 
                         // getting full text from different forms of tweets
                         // show full text from retweet
@@ -176,19 +176,19 @@ $(document).ready(function () {
                         }
 
                         // convert all the links in the text
-                        var finalString = linkify(textString);
+                        let finalString = linkify(textString);
 
                         // add the status url to the final string
-                        var tweetUrl = "https://twitter.com/statuses/" + tweet.id_str;
+                        let tweetUrl = "https://twitter.com/statuses/" + tweet.id_str;
                         finalString += '<br><a href="' + tweetUrl + '" target="_blank">See Full Tweet</a>';
 
                         // name for the tweet user, with link to its id homepage
-                        var userName = jsObject[count].user.name;
-                        var userUrl = "http://twitter.com/" + jsObject[count].user.screen_name;
-                        var userString = '<a href="' + userUrl + '" target="_blank">' + userName + '</a>';
+                        let userName = jsObject[count].user.name;
+                        let userUrl = "http://twitter.com/" + jsObject[count].user.screen_name;
+                        let userString = '<a href="' + userUrl + '" target="_blank">' + userName + '</a>';
 
                         // set to N/A, if there is no place object in the result
-                        var locationString = "N/A";
+                        let locationString = "N/A";
                         if (jsObject[count].place) {
                             locationString = jsObject[count].place.full_name;
                         }
@@ -249,7 +249,7 @@ function saveJSON(data, filename) {
         data = JSON.stringify(data, undefined, 4);
     }
 
-    var blob = new Blob([data], {
+    let blob = new Blob([data], {
             type: 'text/json'
         }),
         e = document.createEvent('MouseEvents'),
@@ -275,7 +275,7 @@ function fixedEncodeURIComponent(str) {
  * when clicked, open the link in another page
  */
 function linkify(text) {
-    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     return text.replace(urlRegex, function (url) {
         return '<a href="' + url + '" target="_blank">' + url + '</a>';
     });
@@ -286,7 +286,7 @@ function linkify(text) {
  * i.e. from mm/dd/yyyy to yyyy-mm-dd
  */
 function formatDate(date) {
-    var d = new Date(date),
+    let d = new Date(date),
         month = "" + (d.getMonth() + 1),
         day = "" + d.getDate(),
         year = d.getFullYear();
@@ -298,7 +298,7 @@ function formatDate(date) {
 
 // function for toolip display and more help button, which gives instruction
 $(function () {
-    var tooltips = $("[title]").tooltip({
+    let tooltips = $("[title]").tooltip({
         position: {
             my: "right top",
             at: "right bottom",
