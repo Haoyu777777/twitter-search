@@ -1,11 +1,9 @@
-
 # using flask to render twitter date in a web app via python
 
 # pip install Flask
-
-
 from flask import Flask
 from flask import render_template
+from flask import url_for
 from flask import request
 import parametric_search
 import json
@@ -32,7 +30,6 @@ def trend_in_twitter(woe_id):
 # passing multiple parameters in url search
 # set the default of geocode to be None, meaningno restriction
 # e.g. /term=hello&until=2018-10-7&since=2018-10-3&count=5&geocode=40.71316,-74.00401,1km
-
 @app.route("/searching_test/")
 def search_term():
 
