@@ -1,3 +1,5 @@
+# auther Haoyu Li
+
 # use flask to render twitter data in a web app via python
 # use twitter api to search tweets based on geolocation, time span, and keywords
 # i.e. parametric tweet search, source of trend
